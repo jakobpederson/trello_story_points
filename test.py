@@ -82,7 +82,6 @@ class StoryPointTests(TestCase):
         self.assertEqual(percent_points, 0)
         self.assertEqual(percent_cards, 0)
 
-
     def test_x(self):
         list_breakdown = {
             'backlog': {
@@ -112,7 +111,7 @@ class StoryPointTests(TestCase):
             total_percent_cards += percent_cards
         self.assertEqual(total_percent_points, 100)
         self.assertEqual(total_percent_cards, 100)
-        self.fail('x')
+
 
 class TrelloBoard():
 
