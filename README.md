@@ -5,6 +5,7 @@
 python story_points.py --board_id=(gotten from url) --api_key=API_KEY --api_token=API_TOKEN
 
 # Example Output
+```
 ---
 total points: 67
 total cards : 30
