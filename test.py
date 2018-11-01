@@ -24,9 +24,18 @@ class StoryPointTests(TestCase):
 
     def test_gets_correct_score_from_string(self):
         self.assertEqual(get_score('1: first string'), 1)
+
+    def test_get_correct_score_handles_two_digit_integers(self):
         self.assertEqual(get_score('11: second string'), 11)
+
+    def test_get_correct_score_returns_zero_if_score_is_not_int(self):
         self.assertEqual(get_score('x: third string'), 0)
+
+    def test_get_correct_score_handes_no_score_at_all(self):
         self.assertEqual(get_score('fourth string'), 0)
+
+    def test_get_correct_score_handes_multiple_colons(self):
+        self.assertEqual(get_score('1: x: fourth string'), 1)
 
     def test_get_total(self):
         cards = self.board.open_cards()
