@@ -4,6 +4,12 @@
 # Command line
 python story_points.py --board_id=(gotten from url) --api_key=API_KEY --api_token=API_TOKEN
 
+url:
+https://trello.com/b/[board_id]/board_name
+
+API_KEY and TOKEN can be found here:
+https://trello.com/app-key
+
 # Example Output
 ```
 ---
