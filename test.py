@@ -83,6 +83,37 @@ class StoryPointTests(TestCase):
         self.assertEqual(percent_cards, 0)
 
 
+    def test_x(self):
+        list_breakdown = {
+            'backlog': {
+                'points': 6,
+                'cards': 3
+            },
+            'done': {
+                'points': 106,
+                'cards': 3
+            },
+            'meta': {
+                'points': 0,
+                'cards': 1
+            },
+            'in progress': {
+                'points': 15,
+                'cards': 3
+            }
+        }
+        total_points = 127
+        total_cards = 10
+        total_percent_points = 0
+        total_percent_cards = 0
+        for key, item in list_breakdown.items():
+            percent_points, percent_cards = get_percentages(list_breakdown[key]['points'], list_breakdown[key]['cards'], total_points, total_cards)
+            total_percent_points += percent_points
+            total_percent_cards += percent_cards
+        self.assertEqual(total_percent_points, 100)
+        self.assertEqual(total_percent_cards, 100)
+        self.fail('x')
+
 class TrelloBoard():
 
     def __init__(self, name):

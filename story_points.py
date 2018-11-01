@@ -54,8 +54,8 @@ if __name__ == "__main__":
     list_breakdown = get_breakdown(board)
 
     for key, item in list_breakdown.items():
-        percent_points, percent_cards = get_percentages(item['points'], item['cards'], total_points, total_cards)
+        percent_points, percent_cards = get_percentages(list_breakdown[key]['points'], list_breakdown[key]['cards'], total_points, total_cards)
         print(key)
-        print('Points         {0:3d} ({0:.2f}% total points)'.format(item['points'], percent_points))
-        print('Cards          {0:3d} ({0:.2f}% total cards)'.format(item['cards'], percent_cards))
+        print('Points:        {0:3d}'.format(list_breakdown[key]['points']) + ' ({:.2f}% total points)'.format(percent_points))
+        print('Cards :        {0:3d}'.format(list_breakdown[key]['cards']) + ' ({:.2f}% total cards)'.format(percent_cards))
         print('-' * 3)
