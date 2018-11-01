@@ -22,6 +22,9 @@ https://trello.com/app-key
 total points: 67
 total cards : 30
 ---
+percentage done points: 20.00%
+percentage done cards : 19.35%
+---
 Backlog
 Points 45
 Cards  19
