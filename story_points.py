@@ -38,13 +38,13 @@ if __name__ == "__main__":
     board = client.get_board(args.board_id)
     cards = board.open_cards()
 
-    print('=' * 50)
+    print('-' * 3)
     print('total points: {}'.format(get_total(cards)))
     print('total cards : {}'.format(len(cards)))
-    print('=' * 50)
+    print('-' * 3)
 
     for key, item in get_breakdown(board).items():
         print(key)
         print('Points {}'.format(item['points']))
         print('Cards  {}'.format(item['cards']))
-        print('=' * 50)
+        print('-' * 3)
