@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from story_points import get_score, get_total, get_breakdown
+from story_points import get_score, get_total, get_breakdown, get_percentages
 
 
 class StoryPointTests(TestCase):
@@ -63,6 +63,24 @@ class StoryPointTests(TestCase):
             }
         }
         self.assertEqual(result, expected)
+
+    def test_get_percentage(self):
+        points = 10
+        total_points = 100
+        cards = 5
+        total_cards = 10
+        percent_points, percent_cards = get_percentages(points, cards, total_points, total_cards)
+        self.assertEqual(percent_points, 10)
+        self.assertEqual(percent_cards, 50)
+
+    def test_get_percentage_when_totals_are_zero(self):
+        points = 1
+        total_points = 0
+        cards = 5
+        total_cards = 0
+        percent_points, percent_cards = get_percentages(points, cards, total_points, total_cards)
+        self.assertEqual(percent_points, 0)
+        self.assertEqual(percent_cards, 0)
 
 
 class TrelloBoard():

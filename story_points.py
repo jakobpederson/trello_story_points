@@ -27,6 +27,12 @@ def get_breakdown(board):
     return dict(result)
 
 
+def get_percentages(points, cards, total_points, total_cards):
+    percent_points = points/total_points * 100 if total_points else 0
+    percent_cards = cards/total_cards * 100 if total_cards else 0
+    return percent_points, percent_cards
+
+
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument('--api-key', required=True)
@@ -48,15 +54,8 @@ if __name__ == "__main__":
     list_breakdown = get_breakdown(board)
 
     for key, item in list_breakdown.items():
+        percent_points, percent_cards = get_percentages(item['points'], item['cards'], total_points, total_cards)
         print(key)
-        print(
-            'Points         {0:3d} ({0:.2f}% total points)'.format(
-                item['points'], list_breakdown[key]['points'] / total_points * 100
-            )
-        )
-        print(
-            'Cards          {0:3d} ({0:.2f}% total cards)'.format(
-                item['cards'], list_breakdown[key]['cards'] / total_cards * 100
-            )
-        )
+        print('Points         {0:3d} ({0:.2f}% total points)'.format(item['points'], percent_points))
+        print('Cards          {0:3d} ({0:.2f}% total cards)'.format(item['cards'], percent_cards))
         print('-' * 3)
