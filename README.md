@@ -5,6 +5,9 @@
 Card names need to have this format for this script to work:
 `[story point score number]: [description]`
 
+example:
+* 2: fix issue with some app
+
 Cards that have names that are not in that format get a score of 0.
 
 # Command line
