@@ -17,9 +17,11 @@ def get_total(cards):
     return result
 
 
-def get_breakdown(board):
+def get_breakdown(board, skip=None):
     result = defaultdict(dict)
-    for trello_list in board.open_lists():
+    all_lists = board.open_lists()
+    valid_lists = [x for x in all_lists if x.name.lower() != skip] if skip else all_lists
+    for trello_list in valid_lists:
         result[trello_list.name.lower()] = {
             'points': get_total(trello_list.list_cards()),
             'cards': len(trello_list.list_cards())
@@ -33,16 +35,22 @@ def get_percentages(points, cards, total_points, total_cards):
     return percent_points, percent_cards
 
 
+def filter_skip_cards(cards, skip=None):
+    return [x for x in cards if x.get_list().name.lower() != skip.lower()] if skip else cards
+
+
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument('--api-key', required=True)
     parser.add_argument('--token', required=True)
-    parser.add_argument('--board_id', required=False)
+    parser.add_argument('--board_id', required=True)
+    parser.add_argument('--skip', required=False)
     args = parser.parse_args()
 
     client = TrelloClient(api_key=args.api_key, token=args.token)
     board = client.get_board(args.board_id)
-    cards = board.open_cards()
+    all_cards = board.open_cards()
+    cards = filter_skip_cards(all_cards, args.skip.lower())
     total_cards = len(cards)
     total_points = get_total(cards)
 
@@ -51,11 +59,13 @@ if __name__ == "__main__":
     print('total cards : {}'.format(total_cards))
     print('-' * 3)
 
-    list_breakdown = get_breakdown(board)
+    list_breakdown = get_breakdown(board, skip=args.skip.lower())
 
     for key, item in list_breakdown.items():
-        percent_points, percent_cards = get_percentages(list_breakdown[key]['points'], list_breakdown[key]['cards'], total_points, total_cards)
+        points = list_breakdown[key]['points']
+        cards = list_breakdown[key]['cards']
+        percent_points, percent_cards = get_percentages(points, cards, total_points, total_cards)
         print(key)
-        print('Points:        {0:3d}'.format(list_breakdown[key]['points']) + ' ({:.2f}% total points)'.format(percent_points))
-        print('Cards :        {0:3d}'.format(list_breakdown[key]['cards']) + ' ({:.2f}% total cards)'.format(percent_cards))
+        print('Points:        {0:3d}'.format(points) + ' ({:.2f}% total points)'.format(percent_points))
+        print('Cards :        {0:3d}'.format(cards) + ' ({:.2f}% total cards)'.format(percent_cards))
         print('-' * 3)

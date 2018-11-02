@@ -8,7 +8,7 @@ Card names need to have this format for this script to work:
 Cards that have names that are not in that format get a score of 0.
 
 # Command line
-`python story_points.py --board_id=(gotten from url) --api_key=API_KEY --api_token=API_TOKEN`
+`python story_points.py --board_id=(gotten from url) --api_key=API_KEY --api_token=API_TOKEN --skip=(name of list to skip)`
 
 url:
 https://trello.com/b/[board_id]/board_name

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from story_points import get_score, get_total, get_breakdown, get_percentages
+from story_points import get_score, get_total, get_breakdown, get_percentages, filter_skip_cards
 
 
 class StoryPointTests(TestCase):
@@ -63,6 +63,30 @@ class StoryPointTests(TestCase):
             }
         }
         self.assertEqual(result, expected)
+
+    def test_get_list_breakdown_with_skip(self):
+        result = get_breakdown(self.board, skip='meta')
+        expected = {
+            'backlog': {
+                'points': 6,
+                'cards': 3
+            },
+            'done': {
+                'points': 106,
+                'cards': 3
+            },
+            'in progress': {
+                'points': 15,
+                'cards': 3
+            }
+        }
+        self.assertEqual(result, expected)
+
+    def test_filter_skip_cards(self):
+        all_lists = [x.get_list().name for x in self.board.open_cards()]
+        self.assertTrue('meta' in all_lists)
+        result = [x.get_list().name for x in filter_skip_cards(self.board.open_cards(), skip='meta')]
+        self.assertTrue('meta' not in result)
 
     def test_get_percentage(self):
         points = 10
