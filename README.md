@@ -19,22 +19,24 @@ https://trello.com/app-key
 # Example Output
 ```
 ---
-total points: 65
-total cards : 31
+Board: (board name)
 ---
-backlog
-Points          29 (29.00% total points)
-Cards           14 (14.00% total cards)
+total points: 65
+total cards : 30
 ---
 done
-Points          19 (19.00% total points)
-Cards            8 (8.00% total cards)
+Points:         37 (56.92% total points)
+Cards :         14 (46.67% total cards)
 ---
-in progress
-Points          17 (17.00% total points)
-Cards            7 (7.00% total cards)
+backlog
+Points:         18 (27.69% total points)
+Cards :          8 (26.67% total cards)
 ---
 meta
-Points           0 (0.00% total points)
-Cards            2 (2.00% total cards)
+Points:          0 (0.00% total points)
+Cards :          2 (6.67% total cards)
+---
+in progress
+Points:         10 (15.38% total points)
+Cards :          6 (20.00% total cards)
 ---

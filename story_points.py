@@ -50,16 +50,19 @@ if __name__ == "__main__":
     client = TrelloClient(api_key=args.api_key, token=args.token)
     board = client.get_board(args.board_id)
     all_cards = board.open_cards()
-    cards = filter_skip_cards(all_cards, args.skip.lower())
+    skip = args.skip.lower() if args.skip else None
+    cards = filter_skip_cards(all_cards, skip)
     total_cards = len(cards)
     total_points = get_total(cards)
 
+    print('-' * 3)
+    print('Board: {}'.format(board.name))
     print('-' * 3)
     print('total points: {}'.format(total_points))
     print('total cards : {}'.format(total_cards))
     print('-' * 3)
 
-    list_breakdown = get_breakdown(board, skip=args.skip.lower())
+    list_breakdown = get_breakdown(board, skip=skip)
 
     for key, item in list_breakdown.items():
         points = list_breakdown[key]['points']
