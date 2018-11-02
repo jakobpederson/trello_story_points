@@ -106,7 +106,7 @@ class StoryPointTests(TestCase):
         self.assertEqual(percent_points, 0)
         self.assertEqual(percent_cards, 0)
 
-    def test_x(self):
+    def test_percentages_add_up_to_100(self):
         list_breakdown = {
             'backlog': {
                 'points': 6,
@@ -130,7 +130,9 @@ class StoryPointTests(TestCase):
         total_percent_points = 0
         total_percent_cards = 0
         for key, item in list_breakdown.items():
-            percent_points, percent_cards = get_percentages(list_breakdown[key]['points'], list_breakdown[key]['cards'], total_points, total_cards)
+            points = list_breakdown[key]['points']
+            cards = list_breakdown[key]['cards']
+            percent_points, percent_cards = get_percentages(points, cards, total_points, total_cards)
             total_percent_points += percent_points
             total_percent_cards += percent_cards
         self.assertEqual(total_percent_points, 100)
