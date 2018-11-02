@@ -1,4 +1,5 @@
 from trello import TrelloClient
+import datetime
 from argparse import ArgumentParser
 from collections import defaultdict
 
@@ -57,6 +58,7 @@ if __name__ == "__main__":
 
     print('-' * 3)
     print('Board: {}'.format(board.name))
+    print('time run : {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M')))
     print('-' * 3)
     print('total points: {}'.format(total_points))
     print('total cards : {}'.format(total_cards))

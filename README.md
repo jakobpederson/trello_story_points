@@ -20,23 +20,20 @@ https://trello.com/app-key
 ```
 ---
 Board: (board name)
+time run : 2018-11-02 09:33
 ---
-total points: 65
-total cards : 30
----
-done
-Points:         37 (56.92% total points)
-Cards :         14 (46.67% total cards)
+total points: 59
+total cards : 26
 ---
 backlog
-Points:         18 (27.69% total points)
-Cards :          8 (26.67% total cards)
+Points:         37 (62.71% total points)
+Cards :         16 (61.54% total cards)
 ---
-meta
-Points:          0 (0.00% total points)
-Cards :          2 (6.67% total cards)
+done did it ya'll hear now
+Points:          8 (13.56% total points)
+Cards :          4 (15.38% total cards)
 ---
-in progress
-Points:         10 (15.38% total points)
-Cards :          6 (20.00% total cards)
+gitting it done
+Points:         14 (23.73% total points)
+Cards :          6 (23.08% total cards)
 ---
