@@ -4,6 +4,40 @@ from argparse import ArgumentParser
 from collections import defaultdict
 
 
+HEADER = [
+    'name',
+    'duration',
+    'cards',
+    'points',
+    'completed points',
+    'completed cards',
+    '% completed points',
+    '% completed cards'
+]
+
+
+def get_story_points(boards):
+    result = []
+    result.append(HEADER)
+    for board in boards:
+        cards = board.open_cards()
+        total_cards = len(cards)
+        total_points = get_total(cards)
+        data = []
+        data.append(board.name)
+        data.append('duration_filler')
+        data.append(total_cards)
+        data.append(total_points)
+        done_cards = [x for x in board.open_cards() if x.get_list().name.lower().startswith('done')]
+        done_points = get_total(done_cards)
+        data.append(get_total(done_cards))
+        percent_points, percent_cards = get_percentages(done_points, len(done_cards), total_points, total_cards)
+        data.append(percent_points)
+        data.append(percent_cards)
+        result.append(data)
+    return result
+
+
 def get_score(string):
     try:
         return int(string.split(':')[0])
