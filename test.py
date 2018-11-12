@@ -88,6 +88,16 @@ class StoryPointTests(TestCase):
         result = [x.get_list().name for x in filter_skip_cards(self.board.open_cards(), skip='meta')]
         self.assertTrue('meta' not in result)
 
+    def test_can_filter_multiple_skip_cards(self):
+        later = self.board.add_list('later')
+        later.add_card('y')
+        all_lists = [x.get_list().name for x in self.board.open_cards()]
+        self.assertTrue('meta' in all_lists)
+        self.assertTrue('later' in all_lists)
+        result = [x.get_list().name for x in filter_skip_cards(self.board.open_cards(), skip='meta,later')]
+        self.assertTrue('meta' not in result)
+        self.assertTrue('later' not in result)
+
     def test_get_percentage(self):
         points = 10
         total_points = 100

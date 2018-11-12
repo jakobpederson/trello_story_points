@@ -21,7 +21,7 @@ def get_total(cards):
 def get_breakdown(board, skip=None):
     result = defaultdict(dict)
     all_lists = board.open_lists()
-    valid_lists = [x for x in all_lists if x.name.lower() != skip] if skip else all_lists
+    valid_lists = [x for x in all_lists if x.name.lower() not in skip] if skip else all_lists
     for trello_list in valid_lists:
         result[trello_list.name.lower()] = {
             'points': get_total(trello_list.list_cards()),
@@ -37,7 +37,7 @@ def get_percentages(points, cards, total_points, total_cards):
 
 
 def filter_skip_cards(cards, skip=None):
-    return [x for x in cards if x.get_list().name.lower() != skip.lower()] if skip else cards
+    return [x for x in cards if x.get_list().name.lower() not in skip.lower()] if skip else cards
 
 
 if __name__ == "__main__":
