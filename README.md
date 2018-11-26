@@ -21,7 +21,7 @@ https://trello.com/app-key
 
 # Example Output
 ```
----
+\```
 Board: (board name)
 time run : 2018-11-02 09:33
 ---
@@ -40,3 +40,4 @@ gitting it done
 Points:         14 (23.73% total points)
 Cards :          6 (23.08% total cards)
 ---
+\```

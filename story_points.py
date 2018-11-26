@@ -56,7 +56,7 @@ if __name__ == "__main__":
     total_cards = len(cards)
     total_points = get_total(cards)
 
-    print('-' * 3)
+    print('`' * 3)
     print('Board: {}'.format(board.name))
     print('time run : {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M')))
     print('-' * 3)
@@ -74,3 +74,4 @@ if __name__ == "__main__":
         print('Points:        {0:3d}'.format(points) + ' ({:.2f}% total points)'.format(percent_points))
         print('Cards :        {0:3d}'.format(cards) + ' ({:.2f}% total cards)'.format(percent_cards))
         print('-' * 3)
+    print('`' * 3)
