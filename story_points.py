@@ -45,13 +45,13 @@ def get_counts(cards, members_dict):
     card_counter = Counter()
     for card in cards:
         members = sorted(list(card.member_id))
-        key = ' and '.join(['{}'.format(members_dict[x]) for x in members])
-        score = get_score(card.name)
-        if score > 0:
+        if members:
+            key = ' and '.join(['{}'.format(members_dict[x]) for x in members])
+            score = get_score(card.name)
+            # if score > 0:
             counter[key] += score
             card_counter[key] += 1
     return dict(counter), dict(card_counter)
-
 
 
 if __name__ == "__main__":
