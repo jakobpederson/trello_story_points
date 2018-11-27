@@ -1,5 +1,5 @@
 # Story Point Counter
-* goes over trello cards in a board and breaks down story point scores and card counts
+* goes over trello cards in a board and breaks down story point scores and card counts and points and cards per members or member combination.
 
 # Card Format
 Card names need to have this format for this script to work:
@@ -22,22 +22,26 @@ https://trello.com/app-key
 # Example Output
 ```
 \```
+---
 Board: (board name)
-time run : 2018-11-02 09:33
+time run : 2018-11-27 14:53
 ---
-total points: 59
-total cards : 26
+total points: 48
+total cards : 21
 ---
-backlog
-Points:         37 (62.71% total points)
-Cards :         16 (61.54% total cards)
+(list name)
+Points:         48 (100.00% total points)
+Cards :         21 (100.00% total cards)
 ---
-done did it ya'll hear now
-Points:          8 (13.56% total points)
-Cards :          4 (15.38% total cards)
----
-gitting it done
-Points:         14 (23.73% total points)
-Cards :          6 (23.08% total cards)
+Bill and Michael:                7 points - 2 cards
+Tom and Mark and Bill:           2 points - 1 cards
+Mark:                            2 points - 1 cards
+Johnny:                          5 points - 2 cards
+Mark and Michael:                3 points - 1 cards
+Kyle:                            6 points - 2 cards
+Bill:                            3 points - 1 cards
+Michael:                         5 points - 1 cards
+Jessica:                         5 points - 2 cards
+Tom:                             10 points - 5 cards
 ---
 \```

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from story_points import get_score, get_total, get_breakdown, get_percentages, filter_skip_cards
+from story_points import get_score, get_total, get_breakdown, get_percentages, filter_skip_cards, get_counts
 
 
 class StoryPointTests(TestCase):
@@ -148,6 +148,28 @@ class StoryPointTests(TestCase):
         self.assertEqual(total_percent_points, 100)
         self.assertEqual(total_percent_cards, 100)
 
+    def test_member_and_card_count(self):
+        self.card_1.idMembers = [TrelloMember('member 1', self.card_1).id]
+        self.card_2.idMembers = [TrelloMember('member 1', self.card_2).id, TrelloMember('member 2', self.card_2).id]
+        self.card_3.idMembers = [TrelloMember('member 1', self.card_3).id]
+        cards = [self.card_1, self.card_2, self.card_3]
+        members_dict = {'member 1_id': 'member 1', 'member 2_id': 'member 2'}
+        result, card_count = get_counts(cards, members_dict)
+        expected = {'member 1 and member 2': 2, 'member 1': 4}
+        expected_card_count = {'member 1': 2, 'member 1 and member 2': 1}
+        self.assertEqual(result, expected)
+        self.assertEqual(card_count, expected_card_count)
+
+    def test_member_and_card_count_accounts_for_different_order_of_member_ids(self):
+        self.card_1.idMembers = [TrelloMember('member 1', self.card_1).id]
+        self.card_2.idMembers = [TrelloMember('member 2', self.card_2).id, TrelloMember('member 1', self.card_2).id]
+        self.card_3.idMembers = [TrelloMember('member 1', self.card_3).id]
+        cards = [self.card_1, self.card_2, self.card_3]
+        members_dict = {'member 1_id': 'member 1', 'member 2_id': 'member 2'}
+        result, card_count = get_counts(cards, members_dict)
+        expected = {'member 1 and member 2': 2, 'member 1': 4}
+        self.assertEqual(result, expected)
+
 
 class TrelloBoard():
 
@@ -191,6 +213,20 @@ class TrelloCard():
     def __init__(self, name, trello_list):
         self.trello_list = trello_list
         self.name = name
+        self.idMembers = []
+        self.id = 'this_is_{}_id'.format(name)
 
     def get_list(self):
         return self.trello_list
+
+    @property
+    def member_id(self):
+        return self.idMembers
+
+
+class TrelloMember():
+
+    def __init__(self, name, card):
+        self.card = card
+        self.name = name
+        self.id = '{}_id'.format(name)

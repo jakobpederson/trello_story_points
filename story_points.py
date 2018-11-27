@@ -1,7 +1,7 @@
 from trello import TrelloClient
 import datetime
 from argparse import ArgumentParser
-from collections import defaultdict
+from collections import defaultdict, Counter
 
 
 def get_score(string):
@@ -40,6 +40,20 @@ def filter_skip_cards(cards, skip=None):
     return [x for x in cards if x.get_list().name.lower() not in skip.lower()] if skip else cards
 
 
+def get_counts(cards, members_dict):
+    counter = Counter()
+    card_counter = Counter()
+    for card in cards:
+        members = sorted(list(card.member_id))
+        key = ' and '.join(['{}'.format(members_dict[x]) for x in members])
+        score = get_score(card.name)
+        if score > 0:
+            counter[key] += score
+            card_counter[key] += 1
+    return dict(counter), dict(card_counter)
+
+
+
 if __name__ == "__main__":
     parser = ArgumentParser()
     parser.add_argument('--api-key', required=True)
@@ -55,8 +69,11 @@ if __name__ == "__main__":
     cards = filter_skip_cards(all_cards, skip)
     total_cards = len(cards)
     total_points = get_total(cards)
+    members_dict = {member.id: member.full_name.split(' ')[0] for member in board.all_members()}
+    members_breakdown, card_count = get_counts(cards, members_dict)
 
     print('`' * 3)
+    print('-' * 3)
     print('Board: {}'.format(board.name))
     print('time run : {}'.format(datetime.datetime.now().strftime('%Y-%m-%d %H:%M')))
     print('-' * 3)
@@ -74,4 +91,8 @@ if __name__ == "__main__":
         print('Points:        {0:3d}'.format(points) + ' ({:.2f}% total points)'.format(percent_points))
         print('Cards :        {0:3d}'.format(cards) + ' ({:.2f}% total cards)'.format(percent_cards))
         print('-' * 3)
+
+    for key, item in members_breakdown.items():
+        print('{}:{}{} points - {} cards'.format(key, ' ' * (35 - len(key)), item, card_count[key]))
+    print('-' * 3)
     print('`' * 3)
