@@ -92,7 +92,7 @@ if __name__ == "__main__":
         print('Cards :        {0:3d}'.format(cards) + ' ({:.2f}% total cards)'.format(percent_cards))
         print('-' * 3)
 
-    for key, item in members_breakdown.items():
+    for key, item in sorted(members_breakdown.items()):
         print('{}:{}{} points - {} cards'.format(key, ' ' * (35 - len(key)), item, card_count[key]))
     print('-' * 3)
     print('`' * 3)
