@@ -43,15 +43,18 @@ def filter_skip_cards(cards, skip=None):
 def get_counts(cards, members_dict):
     counter = Counter()
     card_counter = Counter()
+    totals = Counter()
     for card in cards:
         members = sorted(list(card.member_id))
+        member_names = ['{}'.format(members_dict[x]) for x in members]
         if members:
-            key = ' and '.join(['{}'.format(members_dict[x]) for x in members])
+            key = ' and '.join(member_names)
             score = get_score(card.name)
-            # if score > 0:
             counter[key] += score
             card_counter[key] += 1
-    return dict(counter), dict(card_counter)
+        for member in member_names:
+            totals[member] += score
+    return dict(counter), dict(card_counter), dict(totals)
 
 
 if __name__ == "__main__":
@@ -70,7 +73,7 @@ if __name__ == "__main__":
     total_cards = len(cards)
     total_points = get_total(cards)
     members_dict = {member.id: member.full_name.split(' ')[0] for member in board.all_members()}
-    members_breakdown, card_count = get_counts(cards, members_dict)
+    members_breakdown, card_count, totals = get_counts(cards, members_dict)
 
     print('`' * 3)
     print('-' * 3)
@@ -95,4 +98,6 @@ if __name__ == "__main__":
     for key, item in sorted(members_breakdown.items()):
         print('{}:{}{} points - {} cards'.format(key, ' ' * (35 - len(key)), item, card_count[key]))
     print('-' * 3)
+    for key, item in sorted(totals.items()):
+        print('{}:{}{} total points'.format(key, ' ' * (35 - len(key)), item))
     print('`' * 3)
