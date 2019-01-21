@@ -44,4 +44,11 @@ Michael:                         5 points - 1 cards
 Jessica:                         5 points - 2 cards
 Tom:                             10 points - 5 cards
 ---
+Mark:                            6 total points
+Johnny:                          5  points
+Kyle:                            6 total points
+Bill:                            10 total points
+Michael:                         8 total points
+Jessica:                         5 total points
+Tom:                             12 total points
 \```

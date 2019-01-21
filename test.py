@@ -154,11 +154,21 @@ class StoryPointTests(TestCase):
         self.card_3.idMembers = [TrelloMember('member 1', self.card_3).id]
         cards = [self.card_1, self.card_2, self.card_3]
         members_dict = {'member 1_id': 'member 1', 'member 2_id': 'member 2'}
-        result, card_count = get_counts(cards, members_dict)
+        result, card_count, _ = get_counts(cards, members_dict)
         expected = {'member 1 and member 2': 2, 'member 1': 4}
         expected_card_count = {'member 1': 2, 'member 1 and member 2': 1}
         self.assertEqual(result, expected)
         self.assertEqual(card_count, expected_card_count)
+
+    def test_total_points_count(self):
+        self.card_1.idMembers = [TrelloMember('member 1', self.card_1).id]
+        self.card_2.idMembers = [TrelloMember('member 1', self.card_2).id, TrelloMember('member 2', self.card_2).id]
+        self.card_3.idMembers = [TrelloMember('member 1', self.card_3).id]
+        cards = [self.card_1, self.card_2, self.card_3]
+        members_dict = {'member 1_id': 'member 1', 'member 2_id': 'member 2'}
+        _, _, totals = get_counts(cards, members_dict)
+        expected = {'member 1': 6, 'member 2': 2}
+        self.assertEqual(totals, expected)
 
     def test_member_and_card_count_accounts_for_different_order_of_member_ids(self):
         self.card_1.idMembers = [TrelloMember('member 1', self.card_1).id]
@@ -166,7 +176,7 @@ class StoryPointTests(TestCase):
         self.card_3.idMembers = [TrelloMember('member 1', self.card_3).id]
         cards = [self.card_1, self.card_2, self.card_3]
         members_dict = {'member 1_id': 'member 1', 'member 2_id': 'member 2'}
-        result, card_count = get_counts(cards, members_dict)
+        result, card_count, _ = get_counts(cards, members_dict)
         expected = {'member 1 and member 2': 2, 'member 1': 4}
         self.assertEqual(result, expected)
 
